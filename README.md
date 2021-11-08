@@ -1,21 +1,12 @@
-# Project
+**Project** is a very easy and flexible solution for building your own project generation tool. It will be helpful if have want to create a lot of services with the same file structure.
 
-This is a pretty easy and flexible library for generating a project structure. 
-Can be used in own command-line tools for starting new projects with the same structures. 
-Supports customizations and is transportable to different platforms.
+The main conсept based on the idea that you have a list of Job and Runner.
 
-## Overview
-All components can be replaced or extended.
+**Job** is the command responsible for creating files or directories. You can easily create your own command.
 
-**Job** - the main work item. Contains function that will be executed and interactive description.
+The **Runner** is functionality responsible for running all jobs one by one and error handling. It needs a list of jobs, an adapter for a file system, and adapter output. Runner also can be replaced by own implementation.
 
-**Builder** - tool for generation jobs list in comfortable way
-
-**Runner** - responsible for run provided jobs 
-
-**Output** - responsible for displaying progress of work
-
-**Driver** - describe relation with file system
+**Builder** is a tool for Job generation. It provides a more comfortable interface. Also, support traversing by folders and relative path for them.
 
 ## Example
 
