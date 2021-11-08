@@ -80,7 +80,7 @@ func TestRunner_Run(t *testing.T) {
 	for testCase, tt := range tests {
 		t.Run(testCase, func(t *testing.T) {
 			driver := &DriverMock{}
-			output := &FeedbackMock{}
+			output := &OutputMock{}
 
 			runner := NewRunner(tt.jobs, driver, output)
 
@@ -95,7 +95,7 @@ func TestRunner_Run(t *testing.T) {
 
 func TestBySteps(t *testing.T) {
 	driver := &DriverMock{}
-	output := &FeedbackMock{}
+	output := &OutputMock{}
 	testJobs := []Job{
 		BuildCustomJob("f1", "comment 1"),
 		BuildCustomJob("f2", "comment 2"),
@@ -160,13 +160,13 @@ func (d *DriverMock) CreateFile(filePath string, _ []byte, _ os.FileMode) error 
 	return nil
 }
 
-type FeedbackMock struct {
+type OutputMock struct {
 }
 
-func (f FeedbackMock) Success(text string) {
+func (f OutputMock) Success(text string) {
 
 }
 
-func (f FeedbackMock) Error(text string, errMsg string) {
+func (f OutputMock) Error(text string, errMsg string) {
 
 }

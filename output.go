@@ -7,6 +7,7 @@ import (
 
 var (
 	_ OutputInterface = ConsoleOutput{}
+	_ OutputInterface = NOPOutput{}
 )
 
 type OutputInterface interface {
@@ -19,10 +20,15 @@ type ConsoleOutput struct {
 }
 
 func (c ConsoleOutput) Success(text string) {
-	fmt.Fprintln(c.Writer, "√", text)
+	_, _ = fmt.Fprintln(c.Writer, "√", text)
 }
 
 func (c ConsoleOutput) Error(text string, errMsg string) {
-	fmt.Fprintln(c.Writer, "X", text)
-	fmt.Fprintln(c.Writer, "Err:", errMsg)
+	_, _ = fmt.Fprintln(c.Writer, "X", text)
+	_, _ = fmt.Fprintln(c.Writer, "\tErr:", errMsg)
 }
+
+type NOPOutput struct{}
+
+func (NOPOutput) Success(_ string)         {}
+func (NOPOutput) Error(_ string, _ string) {}

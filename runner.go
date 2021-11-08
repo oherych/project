@@ -17,16 +17,16 @@ var (
 type Runner struct {
 	jobs       []Job
 	fileSystem DriverInterface
-	feedback   FeedbackInterface
+	output     OutputInterface
 	pos        int
 }
 
 // NewRunner create new NewRunner
-func NewRunner(jobs []Job, fileSystem DriverInterface, feedback FeedbackInterface) *Runner {
+func NewRunner(jobs []Job, fileSystem DriverInterface, output OutputInterface) *Runner {
 	return &Runner{
 		jobs:       jobs,
 		fileSystem: fileSystem,
-		feedback:   feedback,
+		output:     output,
 		pos:        defaultPos,
 	}
 }
@@ -86,12 +86,12 @@ func (r *Runner) exec(j Job) (derr error) {
 	}()
 
 	if err := j.Up(r.fileSystem); err != nil {
-		r.feedback.Error(j.Comment(), err.Error())
+		r.output.Error(j.Comment(), err.Error())
 
 		return RunError{Job: j, E: err}
 	}
 
-	r.feedback.Success(j.Comment())
+	r.output.Success(j.Comment())
 
 	return nil
 }
